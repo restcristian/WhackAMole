@@ -5,12 +5,6 @@ var WHACKAMOLE = {};
 WHACKAMOLE.MODELS = {
     Mole: function(params) {
         var self = this;
-        var Position = {
-            x: (params.xVal) || 0,
-            y: (params.yVal) || 0
-        };
-        var dx = 5;
-        var dy = 5;
         var speed = params.speedVal || 1;
         var pointer = params.elementInDOM || {};
         var STATES = {
@@ -21,21 +15,47 @@ WHACKAMOLE.MODELS = {
         var currentState = STATES.VISIBLE;
         var animationInterval = function() {};
 
-        self.moveUp = function() {
-            Position.y -= dy;
+        self.getState = function() {
+            return currentState;
         };
 
-        self.moveDown = function() {
-            Position.y += dx;
+        self.getPosition = function() {
+            return Position();
         };
+
+        self.comeIn = function() {
+            if (pointer.classList.contains('come-Out')) {
+                pointer.classList.remove('come-Out');
+            }
+            pointer.classList.add('come-In');
+            console.log(pointer.classList);
+        };
+
+        self.comeOut = function() {
+            if (pointer.classList.contains('come-In')) {
+                pointer.classList.remove('come-Out');
+            }
+            pointer.classList.add('come-Out');
+            console.log(pointer.classList);
+        };
+
+        self.animate = function(){
+            self.comeOut();
+           setTimeout(function(){
+               self.comeIn();
+           },2000);
+            
+        };
+
 
         self.initialize = function() {
             //TODO
             pointer.addEventListener('click',
-               function(){
-                   currentState = STATES.HIT;
-                   console.log(pointer.id+' state:'+currentState);
-               }
+                function() {
+                    currentState = STATES.HIT;
+                    console.log(pointer.id + ' state:' + currentState);
+                    //self.comeOut();
+                }
             );
 
         };
@@ -50,10 +70,18 @@ WHACKAMOLE.MODELS = {
         var pointer = params.elementInDOM;
         var speed = params.speedVal || 1;
         var score = 0;
-        var Moles = params.molesVal || []; //Collection of  Moles
+        //var Moles = params.molesVal || []; //Collection of  Moles
         var MAXSCORE = 10;
         var TIMER = 100;
         var statusInterval = function() {};
+
+        self.getScore = function() {
+            return score;
+        };
+
+        self.getTimer = function() {
+            return TIMER;
+        }
 
         self.increaseScore = function() {
             score++;
@@ -102,7 +130,7 @@ WHACKAMOLE.MODELS = {
 };
 //Declaring Logic (including eventHandlers)
 WHACKAMOLE.LOGIC = {
-    EVENTS : {
+    EVENTS: {
         gameInit: function() {
             //TODO
             var molesDOM = document.getElementsByClassName('mole'),
@@ -117,9 +145,18 @@ WHACKAMOLE.LOGIC = {
             }
 
             var stage = new WHACKAMOLE.MODELS.Stage({
-                elementInDOM: stageDOM,
-                molesVal: moles
+                elementInDOM: stageDOM
             });
+
+            //LOGIC BEGINS
+            var RandomMoleIdx = function(min,max){
+                return Math.round(Math.random() * (max-min) + min);
+            };
+
+            setInterval(function(){
+                moles[RandomMoleIdx(0,2)].animate();
+            },2000);
+
 
 
         }
@@ -128,8 +165,8 @@ WHACKAMOLE.LOGIC = {
 
 };
 
-var whackAMoleGame = WHACKAMOLE.LOGIC;
+window.onload = function() {
+    var whackAMoleGame = WHACKAMOLE.LOGIC.EVENTS;
 
-console.log('hey');
-
-whackAMoleGame.EVENTS.gameInit();
+    whackAMoleGame.gameInit();
+}

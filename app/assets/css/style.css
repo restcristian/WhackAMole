@@ -18,7 +18,14 @@
     background-color: #ff0000;
     display: inline-block;
     margin-right: 5px;
-    transition: transform 1s ease; }
+    transition: all 1s ease;
+    opacity: 1; }
 
-.come-Out, .stage .mole:hover {
+.come-Out {
   transform: scaleY(4); }
+
+.come-In {
+  transform: scaleY(0); }
+
+.smack {
+  opacity: 0; }
