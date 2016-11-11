@@ -21,7 +21,11 @@
         margin-right: 5px;
         transition: transform 1s ease;
         &:hover {
-            transform: scaleY(2);
+            @extend .come-Out;
         }
     }
+}
+
+.come-Out{
+    transform: scaleY(4);
 }
