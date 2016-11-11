@@ -13,7 +13,10 @@ WHACKAMOLE.MODELS = {
         var dy = 0;
         var speed = speedVal || 1;
         var pointer = pointedElement;
-        var states = ['normal', 'hitted'];
+        var states = {
+            NORMAL: 0,
+            HIT: 1
+        };
         var currentState = states[0];
         var animationInterval = function() {};
 
@@ -41,7 +44,7 @@ WHACKAMOLE.MODELS = {
         var score = 0;
         var Moles = molesVal || []; //Collection of  Moles
         var MAXSCORE = 10;
-        var timer = 100;
+        var TIMER = 100;
         var statusInterval = function() {};
 
         self.increaseScore = function() {
@@ -49,7 +52,7 @@ WHACKAMOLE.MODELS = {
         };
 
         self.checkGameStatus = function() {
-            if (score === MAXSCORE || time === 0) {
+            if (score === MAXSCORE || TIMER === 0) {
                 self.gameOver();
             }
         };
@@ -91,12 +94,12 @@ WHACKAMOLE.MODELS = {
 //Declaring Logic (including eventHandlers)
 WHACKAMOLE.LOGIC = {
     EVENTS = {
-        onInit:function(){
+        onInit: function() {
             //TODO
         },
         onClick: function() {
             //TODO
         }
     },
-    
+
 };
