@@ -12,7 +12,7 @@ WHACKAMOLE.MODELS = {
             INVISIBLE: 1,
             HIT: 2
         };
-        var currentState = STATES.VISIBLE;
+        var currentState = STATES.INVISIBLE;
         var animationInterval = function() {};
 
         self.getState = function() {
@@ -24,35 +24,41 @@ WHACKAMOLE.MODELS = {
         };
 
         self.comeIn = function() {
-            if (pointer.classList.contains('come-Out')) {
-                pointer.classList.remove('come-Out');
-            }
+
+            pointer.classList.remove('come-Out');
             pointer.classList.add('come-In');
-            console.log(pointer.classList);
+            currentState = STATES.VISIBLE;
+            console.log(pointer);
         };
 
         self.comeOut = function() {
-            if (pointer.classList.contains('come-In')) {
-                pointer.classList.remove('come-Out');
-            }
+
+            pointer.classList.remove('come-Out');
             pointer.classList.add('come-Out');
-            console.log(pointer.classList);
+            console.log(pointer);
         };
 
-        self.animate = function(){
+        self.animateUpDown = function() {
             self.comeOut();
-           setTimeout(function(){
-               self.comeIn();
-           },2000);
-            
+            setTimeout(function() {
+                self.comeIn();
+            }, 2000);
+            currentState = STATES.VISIBLE;
+
         };
 
+        self.animateHit = function(){
+            pointer.classList.remove('come-Out');
+            pointer.classList.remove('come-In');
+            pointer.classList.add('smack');
+            currentState = STATES.HIT; 
+        };
 
         self.initialize = function() {
             //TODO
             pointer.addEventListener('click',
                 function() {
-                    currentState = STATES.HIT;
+                    self.animateHit();
                     console.log(pointer.id + ' state:' + currentState);
                     //self.comeOut();
                 }
@@ -149,15 +155,13 @@ WHACKAMOLE.LOGIC = {
             });
 
             //LOGIC BEGINS
-            var RandomMoleIdx = function(min,max){
-                return Math.round(Math.random() * (max-min) + min);
+            var RandomMoleIdx = function(min, max) {
+                return Math.round(Math.random() * (max - min) + min);
             };
 
-            setInterval(function(){
-                moles[RandomMoleIdx(0,2)].animate();
-            },2000);
-
-
+            setInterval(function() {
+                moles[RandomMoleIdx(0, moles.length - 1)].animateUpDown();
+            }, 2000);
 
         }
 
