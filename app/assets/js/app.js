@@ -1,5 +1,7 @@
+//Namespace declaration
 var WHACKAMOLE = {};
 
+//Declaring models
 WHACKAMOLE.MODELS = {
     Mole: function(xVal, yVal, speedVal, pointedElement) {
         var self = this;
@@ -24,7 +26,7 @@ WHACKAMOLE.MODELS = {
         };
 
         self.render = function() {
-             //TODO
+            //TODO
         };
         //Constructor
         (function() {
@@ -40,32 +42,32 @@ WHACKAMOLE.MODELS = {
         var Moles = molesVal || []; //Collection of  Moles
         var MAXSCORE = 10;
         var timer = 100;
-        var statusInterval = function(){};
+        var statusInterval = function() {};
 
         self.increaseScore = function() {
             score++;
         };
 
         self.checkGameStatus = function() {
-            if (score === MAXSCORE || time === 0 ) {
+            if (score === MAXSCORE || time === 0) {
                 self.gameOver();
             }
         };
 
-        self.autoUpdateStatus = function(){
-            statusInterval = setTimeout(updateStatus,1000);
+        self.autoUpdateStatus = function() {
+            statusInterval = setTimeout(updateStatus, 1000);
         };
 
-        self.pauseUpdateStatus = function(){
+        self.pauseUpdateStatus = function() {
             clearInterval(statusInterval);
         };
 
-        self.updateStatus = function(){
+        self.updateStatus = function() {
             self.updateTimer();
         };
 
-        self.updateTimer = function(){
-            timer--; 
+        self.updateTimer = function() {
+            timer--;
         }
 
         self.gameOver = function() {
@@ -73,7 +75,7 @@ WHACKAMOLE.MODELS = {
         };
 
         self.render = function() {
-             //TODO
+            //TODO
         };
 
 
@@ -86,4 +88,15 @@ WHACKAMOLE.MODELS = {
     }
 
 };
-
+//Declaring Logic (including eventHandlers)
+WHACKAMOLE.LOGIC = {
+    EVENTS = {
+        onInit:function(){
+            //TODO
+        },
+        onClick: function() {
+            //TODO
+        }
+    },
+    
+};
