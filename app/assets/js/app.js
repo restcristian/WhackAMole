@@ -24,7 +24,7 @@ WHACKAMOLE.MODELS = {
         };
 
         self.render = function() {
-
+             //TODO
         };
         //Constructor
         (function() {
@@ -39,28 +39,47 @@ WHACKAMOLE.MODELS = {
         var score = 0;
         var Moles = molesVal || []; //Collection of  Moles
         var MAXSCORE = 10;
+        var timer = 100;
+        var statusInterval = function(){};
 
         self.increaseScore = function() {
             score++;
         };
 
         self.checkGameStatus = function() {
-            if (score === MAXSCORE) {
+            if (score === MAXSCORE || time === 0 ) {
                 self.gameOver();
             }
         };
 
-        self.gameOver = function() {
+        self.autoUpdateStatus = function(){
+            statusInterval = setTimeout(updateStatus,1000);
+        };
 
+        self.pauseUpdateStatus = function(){
+            clearInterval(statusInterval);
+        };
+
+        self.updateStatus = function(){
+            self.updateTimer();
+        };
+
+        self.updateTimer = function(){
+            timer--; 
+        }
+
+        self.gameOver = function() {
+            //TODO
         };
 
         self.render = function() {
-
+             //TODO
         };
 
 
         //Constructor
         (function() {
+            self.autoUpdateStatus();
             self.render();
         })();
 
