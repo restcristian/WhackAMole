@@ -19,12 +19,7 @@ WHACKAMOLE.MODELS = {
             return currentState;
         };
 
-        self.getPosition = function() {
-            return Position();
-        };
-
         self.comeIn = function() {
-
             pointer.classList.remove('come-Out');
             pointer.classList.add('come-In');
             currentState = STATES.VISIBLE;
@@ -32,7 +27,6 @@ WHACKAMOLE.MODELS = {
         };
 
         self.comeOut = function() {
-
             pointer.classList.remove('come-Out');
             pointer.classList.add('come-Out');
             console.log(pointer);
@@ -43,7 +37,7 @@ WHACKAMOLE.MODELS = {
             setTimeout(function() {
                 self.comeIn();
             }, 2000);
-            currentState = STATES.VISIBLE;
+            currentState = STATES.INVISIBLE;
 
         };
 
