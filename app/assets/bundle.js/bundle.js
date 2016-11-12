@@ -20,14 +20,19 @@ WHACKAMOLE.MODELS = {
         };
 
         self.comeIn = function() {
-            pointer.classList.remove('come-Out');
+            if(pointer.classList.contains('come-Out')){
+                pointer.classList.remove('come-Out');
+            }
+            
             pointer.classList.add('come-In');
             currentState = STATES.VISIBLE;
             console.log(pointer);
         };
 
         self.comeOut = function() {
-            pointer.classList.remove('come-Out');
+            if(pointer.classList.contains('come-In')){
+                pointer.classList.remove('come-In');
+            }
             pointer.classList.add('come-Out');
             console.log(pointer);
         };
@@ -41,11 +46,11 @@ WHACKAMOLE.MODELS = {
 
         };
 
-        self.animateHit = function(){
+        self.animateHit = function() {
             pointer.classList.remove('come-Out');
             pointer.classList.remove('come-In');
             pointer.classList.add('smack');
-            currentState = STATES.HIT; 
+            currentState = STATES.HIT;
         };
 
         self.initialize = function() {
