@@ -1,4 +1,5 @@
 //Namespace declaration
+
 var WHACKAMOLE = {};
 
 //Declaring models
@@ -20,28 +21,28 @@ WHACKAMOLE.MODELS = {
         };
 
         self.comeIn = function() {
-            if(pointer.classList.contains('come-Out')){
+            if (pointer.classList.contains('come-Out')) {
                 pointer.classList.remove('come-Out');
             }
-            
+
             pointer.classList.add('come-In');
             currentState = STATES.VISIBLE;
             console.log(pointer);
         };
 
         self.comeOut = function() {
-            if(pointer.classList.contains('come-In')){
+            if (pointer.classList.contains('come-In')) {
                 pointer.classList.remove('come-In');
             }
             pointer.classList.add('come-Out');
             console.log(pointer);
         };
 
-        self.animateUpDown = function() {
+        self.animateUpDown = function(velocity) {
             self.comeOut();
             setTimeout(function() {
                 self.comeIn();
-            }, 2000);
+            }, velocity); //Make this value a parameter
             currentState = STATES.INVISIBLE;
 
         };
@@ -75,6 +76,7 @@ WHACKAMOLE.MODELS = {
         var pointer = params.elementInDOM;
         var speed = params.speedVal || 1;
         var score = 0;
+        var scoreDOM = pointer.getElementsByClassName('score')[0];
         //var Moles = params.molesVal || []; //Collection of  Moles
         var MAXSCORE = 10;
         var TIMER = 100;
@@ -86,10 +88,11 @@ WHACKAMOLE.MODELS = {
 
         self.getTimer = function() {
             return TIMER;
-        }
+        };
 
         self.increaseScore = function() {
             score++;
+            scoreDOM.innerHTML = score;
         };
 
         self.checkGameStatus = function() {
@@ -113,7 +116,7 @@ WHACKAMOLE.MODELS = {
 
         self.updateTimer = function() {
             TIMER--;
-        }
+        };
 
         self.gameOver = function() {
             //TODO
@@ -153,14 +156,19 @@ WHACKAMOLE.LOGIC = {
                 elementInDOM: stageDOM
             });
 
+
             //LOGIC BEGINS
             var RandomMoleIdx = function(min, max) {
                 return Math.round(Math.random() * (max - min) + min);
             };
 
+            var handicapVelocity = 1000;
+            //Mole Appearing rate thread
             setInterval(function() {
-                moles[RandomMoleIdx(0, moles.length - 1)].animateUpDown();
-            }, 2000);
+                var idx = RandomMoleIdx(0, moles.length - 1);
+                moles[idx].animateUpDown(handicapVelocity);
+
+            }, handicapVelocity);
 
         }
 
@@ -172,4 +180,4 @@ window.onload = function() {
     var whackAMoleGame = WHACKAMOLE.LOGIC.EVENTS;
 
     whackAMoleGame.gameInit();
-}
+};
