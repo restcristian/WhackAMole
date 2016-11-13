@@ -77,7 +77,7 @@ WHACKAMOLE.MODELS = {
         var speed = params.speedVal || 1;
         var score = 0;
         var scoreDOM = pointer.getElementsByClassName('score')[0];
-        //var Moles = params.molesVal || []; //Collection of  Moles
+        self.Moles = []; //Collection of  Mole;
         var MAXSCORE = 10;
         var TIMER = 100;
         var statusInterval = function() {};
@@ -123,13 +123,24 @@ WHACKAMOLE.MODELS = {
         };
 
         self.initialize = function() {
-            //TODO
+
+            var molesInDOM = pointer.getElementsByClassName('mole');
+
+            for (var it = 0; it < molesInDOM.length; it++) {
+                var mole = new WHACKAMOLE.MODELS.Mole({
+                    elementInDOM: molesInDOM[it]
+                });
+                self.Moles.push(mole);
+            }
+
+
         };
 
 
         //Constructor
         (function() {
-            self.autoUpdateStatus();
+            //self.initialize();
+            //self.autoUpdateStatus();
             //self.render();
         })();
 
@@ -141,21 +152,13 @@ WHACKAMOLE.LOGIC = {
     EVENTS: {
         gameInit: function() {
             //TODO
-            var molesDOM = document.getElementsByClassName('mole'),
-                stageDOM = document.getElementsByClassName('stage')[0],
-                moles = [];
-
-            for (var it = 0; it < molesDOM.length; it++) {
-                var mole = new WHACKAMOLE.MODELS.Mole({
-                    elementInDOM: molesDOM[it]
-                });
-                moles.push(mole);
-            }
+            var stageDOM = document.getElementsByClassName('stage')[0];
 
             var stage = new WHACKAMOLE.MODELS.Stage({
                 elementInDOM: stageDOM
             });
 
+            stage.initialize();
 
             //LOGIC BEGINS
             var RandomMoleIdx = function(min, max) {
@@ -165,8 +168,8 @@ WHACKAMOLE.LOGIC = {
             var handicapVelocity = 1000;
             //Mole Appearing rate thread
             setInterval(function() {
-                var idx = RandomMoleIdx(0, moles.length - 1);
-                moles[idx].animateUpDown(handicapVelocity);
+                var idx = RandomMoleIdx(0, stage.Moles.length - 1);
+                stage.Moles[idx].animateUpDown(handicapVelocity);
 
             }, handicapVelocity);
 
