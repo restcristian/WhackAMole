@@ -25,6 +25,7 @@ WHACKAMOLE.LOGIC = {
             }, handicapVelocity);
 
 
+
         }
 
     }

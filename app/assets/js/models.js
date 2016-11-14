@@ -78,10 +78,18 @@ WHACKAMOLE.MODELS = {
         var speed = params.speedVal || 1;
         var score = 0;
         var scoreDOM = pointer.getElementsByClassName('score')[0];
+        var timerDOM = pointer.getElementsByClassName('timer')[0];
         self.Moles = []; //Collection of  Mole;
-        var MAXSCORE = 10;
-        var TIMER = 100;
+        var MAXSCORE = 3;
+        var TIMER = 10;
         var statusInterval = function() {};
+        var STATUS = {
+            RUNNING:0,
+            PAUSED:1,
+            LOST:2,
+            WIN:3
+        };
+        var currentStatus = STATUS.RUNNING;
 
         self.getScore = function() {
             return score;
@@ -90,6 +98,10 @@ WHACKAMOLE.MODELS = {
         self.getTimer = function() {
             return TIMER;
         };
+
+        self.getCurrentStatus = function(){
+            return currentStatus;
+        }
 
         self.increaseScore = function() {
             return function() {
@@ -105,7 +117,7 @@ WHACKAMOLE.MODELS = {
         };
 
         self.autoUpdateStatus = function() {
-            statusInterval = setTimeout(self.updateStatus, 1000);
+            statusInterval = setInterval(self.updateStatus, 1000);
         };
 
         self.pauseUpdateStatus = function() {
@@ -118,19 +130,23 @@ WHACKAMOLE.MODELS = {
         };
 
         self.updateTimer = function() {
-            TIMER--;
+            TIMER-=(TIMER === 0)?0:1;
+            timerDOM.innerHTML = TIMER;
         };
 
         self.gameOver = function() {
             var p = document.createElement('p');
             p.innerHTML = 'Game Over';
             pointer.appendChild(p);
+            self.pauseUpdateStatus();
+            
             //TODO
         };
 
         self.initialize = function() {
 
             var molesInDOM = pointer.getElementsByClassName('mole');
+            timerDOM.innerHTML = TIMER;
 
             for (var it = 0; it < molesInDOM.length; it++) {
                 var mole = new WHACKAMOLE.MODELS.Mole({
@@ -146,7 +162,7 @@ WHACKAMOLE.MODELS = {
         //Constructor
         (function() {
             //self.initialize();
-            //self.autoUpdateStatus();
+            self.autoUpdateStatus();
             //self.render();
         })();
 
