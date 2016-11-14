@@ -20,6 +20,8 @@
     margin-right: 5px;
     transition: all .6s ease;
     opacity: 1; }
+    .stage .mole:hover {
+      cursor: pointer; }
 
 .come-Out {
   transform: scaleY(4); }

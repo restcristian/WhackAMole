@@ -21,6 +21,9 @@
         margin-right: 5px;
         transition: all .6s ease;
         opacity: 1;
+        &:hover{
+            cursor:pointer;
+        }
         //&:hover {
         //  @extend .come-Out;
         // }
