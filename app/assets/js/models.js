@@ -4,7 +4,6 @@ var WHACKAMOLE = {};
 WHACKAMOLE.MODELS = {
     Mole: function(params) {
         var self = this;
-        var speed = params.speedVal || 1;
         var pointer = params.elementInDOM || {};
         var STATES = {
             VISIBLE: 0,
@@ -22,7 +21,6 @@ WHACKAMOLE.MODELS = {
             if (pointer.classList.contains('come-Out')) {
                 pointer.classList.remove('come-Out');
             }
-
             pointer.classList.add('come-In');
             // console.log(pointer);
         };
@@ -75,7 +73,6 @@ WHACKAMOLE.MODELS = {
     Stage: function(params) {
         var self = this;
         var pointer = params.elementInDOM;
-        var speed = params.speedVal || 1;
         var score = 0;
         var scoreDOM = pointer.getElementsByClassName('score')[0];
         var timerDOM = pointer.getElementsByClassName('timer')[0];
@@ -155,7 +152,6 @@ WHACKAMOLE.MODELS = {
                 mole.onMoleClickCB(self.increaseScore());
                 self.Moles.push(mole);
             }
-
 
         };
 
