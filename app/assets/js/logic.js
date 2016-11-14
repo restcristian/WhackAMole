@@ -22,8 +22,13 @@ WHACKAMOLE.LOGIC = {
                 var idx = RandomMoleIdx(0, stage.Moles.length - 1);
                 stage.Moles[idx].animateUpDown(handicapVelocity);
 
+                if(stage.getCurrentStatus() !== stage.STATUS.RUNNING){
+                    clearInterval(randomMoleAnimationInterval);
+                }
+
             }, handicapVelocity);
 
+            
 
 
         }

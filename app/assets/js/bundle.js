@@ -83,13 +83,12 @@ WHACKAMOLE.MODELS = {
         var MAXSCORE = 3;
         var TIMER = 10;
         var statusInterval = function() {};
-        var STATUS = {
+        self.STATUS = {
             RUNNING:0,
             PAUSED:1,
-            LOST:2,
-            WIN:3
+            OVER:2
         };
-        var currentStatus = STATUS.RUNNING;
+        var currentStatus = self.STATUS.RUNNING;
 
         self.getScore = function() {
             return score;
@@ -138,6 +137,7 @@ WHACKAMOLE.MODELS = {
             var p = document.createElement('p');
             p.innerHTML = 'Game Over';
             pointer.appendChild(p);
+            currentStatus = self.STATUS.OVER;
             self.pauseUpdateStatus();
             
             //TODO
@@ -194,8 +194,13 @@ WHACKAMOLE.LOGIC = {
                 var idx = RandomMoleIdx(0, stage.Moles.length - 1);
                 stage.Moles[idx].animateUpDown(handicapVelocity);
 
+                if(stage.getCurrentStatus() !== stage.STATUS.RUNNING){
+                    clearInterval(randomMoleAnimationInterval);
+                }
+
             }, handicapVelocity);
 
+            
 
 
         }
