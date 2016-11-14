@@ -26,10 +26,7 @@ WHACKAMOLE.LOGIC = {
                     clearInterval(randomMoleAnimationInterval);
                 }
 
-            }, handicapVelocity);
-
-            
-
+            }, handicapVelocity);  
 
         }
 

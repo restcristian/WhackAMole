@@ -1,6 +1,7 @@
+//Declaring namespace.
 var WHACKAMOLE = {};
 
-//Declaring models
+//Declaring models.
 WHACKAMOLE.MODELS = {
     Mole: function(params) {
         var self = this;
@@ -12,28 +13,26 @@ WHACKAMOLE.MODELS = {
         };
         var currentState = STATES.INVISIBLE;
         var animationInterval = function() {};
-
+        //Returns currentState.
         self.getState = function() {
             return currentState;
         };
-
+        //Adds animation class when mole hides.
         self.comeIn = function() {
             if (pointer.classList.contains('come-Out')) {
                 pointer.classList.remove('come-Out');
             }
             pointer.classList.add('come-In');
-            // console.log(pointer);
         };
-
+        //Adds animation class when mole shows up.
         self.comeOut = function() {
             currentState = STATES.VISIBLE;
             if (pointer.classList.contains('come-In')) {
                 pointer.classList.remove('come-In');
             }
             pointer.classList.add('come-Out');
-            // console.log(pointer);
         };
-
+        //Mole animation sequence.
         self.animateUpDown = function(velocity) {
             self.comeOut();
 
@@ -46,14 +45,14 @@ WHACKAMOLE.MODELS = {
             },velocity+1);
 
         };
-
+        //Mole being hit animation sequence.
         self.animateHit = function() {
             pointer.classList.remove('come-Out');
             pointer.classList.remove('come-In');
             pointer.classList.add('smack');
             currentState = STATES.HIT;
         };
-
+        //On Click CallBack.
         self.onMoleClickCB = function(cb) {
             pointer.addEventListener('click', function() {
                 console.log(currentState + ' clicked');
@@ -86,50 +85,50 @@ WHACKAMOLE.MODELS = {
             OVER:2
         };
         var currentStatus = self.STATUS.RUNNING;
-
+        //Returns the current score value.
         self.getScore = function() {
             return score;
         };
-
+        //Returns the current Timer Value
         self.getTimer = function() {
             return TIMER;
         };
-
+        //Returns current Stage status.
         self.getCurrentStatus = function(){
             return currentStatus;
         }
-
+        //Increases the current score value but it is returned as a callback.
         self.increaseScore = function() {
             return function() {
                 score++;
                 scoreDOM.innerHTML = score;
             };
         };
-
+        //Verifies whether the game ended or not.
         self.checkGameStatus = function() {
             if (score === MAXSCORE || TIMER === 0) {
                 self.gameOver();
             }
         };
-
+        //Executes every second to update timer and check game status.
         self.autoUpdateStatus = function() {
             statusInterval = setInterval(self.updateStatus, 1000);
         };
-
+        //Clears the stage status interval
         self.pauseUpdateStatus = function() {
             clearInterval(statusInterval);
         };
-
+        //Verifies game status and updates the current timer.
         self.updateStatus = function() {
             self.checkGameStatus();
             self.updateTimer();
         };
-
+        //Updates current timer value
         self.updateTimer = function() {
             TIMER-=(TIMER === 0)?0:1;
             timerDOM.innerHTML = TIMER;
         };
-
+        //Generates Game Over DOM Element and pauses the Status Update
         self.gameOver = function() {
             var p = document.createElement('p');
             p.innerHTML = 'Game Over';
@@ -137,13 +136,13 @@ WHACKAMOLE.MODELS = {
             currentStatus = self.STATUS.OVER;
             self.pauseUpdateStatus();
             
-            //TODO
         };
-
+        //Gets the moles DOM element, creates moles instances and adds callback.
         self.initialize = function() {
 
             var molesInDOM = pointer.getElementsByClassName('mole');
             timerDOM.innerHTML = TIMER;
+            scoreDOM.innerHTML = score;
 
             for (var it = 0; it < molesInDOM.length; it++) {
                 var mole = new WHACKAMOLE.MODELS.Mole({
@@ -194,10 +193,7 @@ WHACKAMOLE.LOGIC = {
                     clearInterval(randomMoleAnimationInterval);
                 }
 
-            }, handicapVelocity);
-
-            
-
+            }, handicapVelocity);  
 
         }
 
