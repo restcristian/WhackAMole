@@ -13,6 +13,7 @@ WHACKAMOLE.MODELS = {
             INVISIBLE: 1,
             HIT: 2
         };
+        var moleClickCB = function(){};
         var currentState = STATES.INVISIBLE;
         var animationInterval = function() {};
 
@@ -54,20 +55,16 @@ WHACKAMOLE.MODELS = {
             currentState = STATES.HIT;
         };
 
-        self.initialize = function() {
-            //TODO
-            pointer.addEventListener('click',
-                function() {
-                    self.animateHit();
-                    console.log(pointer.id + ' state:' + currentState);
-                    //self.comeOut();
-                }
-            );
-
+        self.onMoleClickCB = function(cb){
+            pointer.addEventListener('click',function(){
+                self.animateHit();
+                cb();
+            })
         };
+
         //Constructor
         (function() {
-            self.initialize();
+            //self.initialize();
         })();
 
     },
@@ -91,8 +88,10 @@ WHACKAMOLE.MODELS = {
         };
 
         self.increaseScore = function() {
-            score++;
-            scoreDOM.innerHTML = score;
+            return function(){
+                score++;
+                scoreDOM.innerHTML = score;
+            };
         };
 
         self.checkGameStatus = function() {
@@ -130,6 +129,7 @@ WHACKAMOLE.MODELS = {
                 var mole = new WHACKAMOLE.MODELS.Mole({
                     elementInDOM: molesInDOM[it]
                 });
+                mole.onMoleClickCB(self.increaseScore());
                 self.Moles.push(mole);
             }
 
