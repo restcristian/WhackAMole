@@ -7,7 +7,7 @@ function errorLog() {
 }
 gulp.task('watch', function() {
     gulp.watch('app/assets/sass/**/*.scss', ['sass']);
-    gulp.watch('app/assets/js/**/*.js', ['scripts']);
+    gulp.watch('app/assets/js/**/*.js', ['concat-scripts']);
 });
 
 gulp.task('sass', function() {
@@ -24,4 +24,13 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('app/assets/js'));
 });
 
-gulp.task('default', ['sass', 'scripts', 'watch']);
+gulp.task('concat-scripts', function() {
+    return gulp.src(['app/assets/js/**/models.js',
+            'app/assets/js/**/logic.js',
+            'app/assets/js/**/app.js'
+        ])
+        .pipe(concat('bundle.js'))
+        .on('error', errorLog)
+        .pipe(gulp.dest('app/assets/js'));
+});
+gulp.task('default', ['sass', 'concat-scripts', 'watch']);
