@@ -13,7 +13,6 @@ WHACKAMOLE.MODELS = {
             INVISIBLE: 1,
             HIT: 2
         };
-        var moleClickCB = function(){};
         var currentState = STATES.INVISIBLE;
         var animationInterval = function() {};
 
@@ -27,24 +26,28 @@ WHACKAMOLE.MODELS = {
             }
 
             pointer.classList.add('come-In');
-            currentState = STATES.VISIBLE;
-            console.log(pointer);
+            // console.log(pointer);
         };
 
         self.comeOut = function() {
+            currentState = STATES.VISIBLE;
             if (pointer.classList.contains('come-In')) {
                 pointer.classList.remove('come-In');
             }
             pointer.classList.add('come-Out');
-            console.log(pointer);
+            // console.log(pointer);
         };
 
         self.animateUpDown = function(velocity) {
             self.comeOut();
+            
             setTimeout(function() {
                 self.comeIn();
-            }, velocity); //Make this value a parameter
-            currentState = STATES.INVISIBLE;
+            }, velocity);
+       
+            setTimeout(function() {
+                currentState = STATES.INVISIBLE;
+            },velocity+1);
 
         };
 
@@ -55,10 +58,13 @@ WHACKAMOLE.MODELS = {
             currentState = STATES.HIT;
         };
 
-        self.onMoleClickCB = function(cb){
-            pointer.addEventListener('click',function(){
-                self.animateHit();
-                cb();
+        self.onMoleClickCB = function(cb) {
+            pointer.addEventListener('click', function() {
+                console.log(currentState + ' clicked');
+                if (currentState === STATES.VISIBLE) {
+                    cb();
+                    self.animateHit();
+                }
             })
         };
 
@@ -88,7 +94,7 @@ WHACKAMOLE.MODELS = {
         };
 
         self.increaseScore = function() {
-            return function(){
+            return function() {
                 score++;
                 scoreDOM.innerHTML = score;
             };
