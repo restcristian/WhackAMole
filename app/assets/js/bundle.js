@@ -19,18 +19,18 @@ WHACKAMOLE.MODELS = {
         };
         //Adds animation class when mole hides.
         self.comeIn = function() {
-            if (pointer.classList.contains('come-Out')) {
-                pointer.classList.remove('come-Out');
+            if (pointer.classList.contains('mole-Come-Out')) {
+                pointer.classList.remove('mole-Come-Out');
             }
-            pointer.classList.add('come-In');
+            pointer.classList.add('mole-Come-In');
         };
         //Adds animation class when mole shows up.
         self.comeOut = function() {
             currentState = STATES.VISIBLE;
-            if (pointer.classList.contains('come-In')) {
-                pointer.classList.remove('come-In');
+            if (pointer.classList.contains('mole-Come-In')) {
+                pointer.classList.remove('mole-Come-In');
             }
-            pointer.classList.add('come-Out');
+            pointer.classList.add('mole-Come-Out');
         };
         //Mole animation sequence.
         self.animateUpDown = function(velocity) {
@@ -47,9 +47,9 @@ WHACKAMOLE.MODELS = {
         };
         //Mole being hit animation sequence.
         self.animateHit = function() {
-            pointer.classList.remove('come-Out');
-            pointer.classList.remove('come-In');
-            pointer.classList.add('smack');
+            pointer.classList.remove('mole-Come-Out');
+            pointer.classList.remove('mole-Come-In');
+            pointer.classList.add('mole-Hit');
             currentState = STATES.HIT;
         };
         //On Click CallBack.
@@ -77,7 +77,7 @@ WHACKAMOLE.MODELS = {
         var timerDOM = pointer.getElementsByClassName('timer')[0];
         self.Moles = []; //Collection of  Mole;
         var MAXSCORE = 3;
-        var TIMER = 10;
+        var TIMER = 100;
         var statusInterval = function() {};
         self.STATUS = {
             RUNNING:0,
