@@ -13,7 +13,7 @@
     height: 400px;
     padding-top: 190px;
     .mole {
-        width:30px;
+        width:25px;
         height:30px;
         padding:0;
         /*
@@ -23,6 +23,7 @@
        // transform-origin: 0% 100%;
         //background-color: #ff0000;
         //border:1px solid #ff0000;
+        background:url('../imgs/come-out.png');
         display: inline-block;
         margin-right: 5px;
        //transition: all .6s ease;
@@ -36,6 +37,7 @@
     }
 }
 
+/*Animation Classes*/
 .come-Out {
     transform: scaleY(4);
 }
@@ -49,27 +51,31 @@
 }
 
 .mole-Come-Out{
-    background:url('../imgs/come-out.png');
-    animation:play1 .5s steps(9);
+    background:url('../imgs/come-out.png') !important;
+    animation:play1 .6s steps(9);
+    
 }
 
 .mole-Come-In{
     background:url('../imgs/come-in.png');
-    animation:play2 .5s steps(8);
+    animation:play2 .6s steps(5);
+ 
 }
 
 .mole-Hit{
-    background:url('../imgs/hit.png');
-    animation:play3 .5s steps(3);
+    width:38px !important;
+    background:url('../imgs/hit.png') !important;
+    animation:play3 .6s steps(3); 
 }
 
+/*Animations */
 @keyframes play1{
-    100%{background-position:-296px};
+    100%{background-position:-259px};
 }
 
 
 @keyframes play2{
-    100%{background-position:-186px};
+    100%{background-position:-136px};
 }
 
 @keyframes play3{
