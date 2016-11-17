@@ -8,9 +8,10 @@
   max-width: 840px;
   margin: 400px auto;
   text-align: center;
-  border: 1px solid #000;
+  border: 50px solid #000;
   height: 400px;
-  padding-top: 190px; }
+  padding-top: 190px;
+  background: #c79640; }
   .stage .mole {
     width: 25px;
     height: 30px;
@@ -26,6 +27,9 @@
     opacity: 1; }
     .stage .mole:hover {
       cursor: pointer; }
+
+.text-content {
+  color: #fff; }
 
 /*Animation Classes*/
 .come-Out {
@@ -46,6 +50,7 @@
 
 .mole-Hit {
   width: 38px !important;
+  height: 28px !important;
   background: url("../imgs/hit.png") left center !important;
   animation: play3 0.6s steps(3); }
 

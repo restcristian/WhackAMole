@@ -9,9 +9,10 @@
     max-width: 840px;
     margin: 400px auto;
     text-align: center;
-    border: 1px solid #000;
+    border: 50px solid #000;
     height: 400px;
     padding-top: 190px;
+    background:#c79640;
     .mole {
         width:25px;
         height:30px;
@@ -37,7 +38,9 @@
         // }
     }
 }
-
+.text-content{
+    color:#fff;
+}
 /*Animation Classes*/
 .come-Out {
     transform: scaleY(4);
@@ -64,6 +67,7 @@
 
 .mole-Hit{
     width:38px !important;
+    height:28px !important;
     background:url('../imgs/hit.png') left center !important;
     animation:play3 .6s steps(3); 
 }
