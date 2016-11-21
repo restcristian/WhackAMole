@@ -43,10 +43,10 @@
 
 .mole-Come-Out {
   background: url("../imgs/come-out.png") left center !important;
-  animation: play1 1s steps(9); }
+  animation: play1 1.5s steps(9); }
 
 .mole-Come-In {
-  animation: play2 0.6s steps(5); }
+  animation: play2 1.5s steps(5); }
 
 .mole-Hit {
   width: 38px !important;

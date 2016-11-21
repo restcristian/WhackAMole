@@ -24,7 +24,7 @@ WHACKAMOLE.MODELS = {
             }
             pointer.classList.add('mole-Come-In');
         };
-        //Adds animation class when mole shows up.
+        //Adds animation class when mole shows up.(Changes state to Visible)
         self.comeOut = function() {
             currentState = STATES.VISIBLE;
             if (pointer.classList.contains('mole-Come-In')) {
@@ -76,7 +76,7 @@ WHACKAMOLE.MODELS = {
         var scoreDOM = pointer.getElementsByClassName('score')[0];
         var timerDOM = pointer.getElementsByClassName('timer')[0];
         self.Moles = []; //Collection of  Mole;
-        var MAXSCORE = 3;
+        var MAXSCORE = 15;
         var TIMER = 100;
         var statusInterval = function() {};
         self.STATUS = {
@@ -100,7 +100,7 @@ WHACKAMOLE.MODELS = {
         //Increases the current score value but it is returned as a callback.
         self.increaseScore = function() {
             return function() {
-                score++;
+                score+=5;
                 scoreDOM.innerHTML = score;
             };
         };
